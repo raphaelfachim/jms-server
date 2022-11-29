@@ -5,12 +5,14 @@
  */
 package fachim.raphael.server.bo;
 
+import fachim.raphael.server.dao.PlacaDAO;
 import fachim.raphael.server.models.Bobina;
 import fachim.raphael.server.models.Placa;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 /**
  *
@@ -18,6 +20,8 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class MensagensBO {
+    
+    @Inject PlacaDAO placaDao;
     
     public void processaMensagem(String mensagem) throws Exception{
         List<String> campos = new ArrayList<>(Arrays.asList(mensagem.split(";")));
@@ -41,6 +45,7 @@ public class MensagensBO {
                 Float.parseFloat(conteudo.get(2)),
                 Float.parseFloat(conteudo.get(3)),
                 Float.parseFloat(conteudo.get(4)));
+        placaDao.save(placa);
         System.out.println(placa);
     }
     
