@@ -5,6 +5,8 @@
  */
 package fachim.raphael.server.bo;
 
+import fachim.raphael.server.models.Bobina;
+import fachim.raphael.server.models.Placa;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,28 +20,32 @@ import javax.ejb.Stateless;
 public class MensagensBO {
     
     public void processaMensagem(String mensagem) throws Exception{
-        List<String> campos = new ArrayList<>();
-        campos.addAll(Arrays.asList(mensagem.split(";")));
+        List<String> campos = new ArrayList<>(Arrays.asList(mensagem.split(";")));
+        List<String> conteudo = campos.subList(1, campos.size());
+        
         switch(campos.get(0)){
             case "PL":
-                processaMensagemPlaca();
+                processaMensagemPlaca(conteudo);
                 break;
             case "BB":
-                processaMensagemBobina();
+                processaMensagemBobina(conteudo);
                 break;
             default:
                 throw new Exception("Erro ao identificar mensagem");
         }
-        System.out.println("Campos : ");
-        System.out.println(campos);
     }
     
-    public void processaMensagemPlaca(){
-        System.out.println("processaMensagemPlaca");
+    public void processaMensagemPlaca(List<String> conteudo){
+        Placa placa = new Placa(conteudo.get(0),
+                Float.parseFloat(conteudo.get(1)),
+                Float.parseFloat(conteudo.get(2)),
+                Float.parseFloat(conteudo.get(3)),
+                Float.parseFloat(conteudo.get(4)));
+        System.out.println(placa);
     }
     
-    public void processaMensagemBobina(){
-        System.out.println("processaMensagemBobina");
-        
+    public void processaMensagemBobina(List<String> conteudo){
+       Bobina bobina = new Bobina(conteudo.get(0), Float.NaN, Float.NaN, Float.NaN, Float.NaN);
+       System.out.println(bobina);
     }
 }

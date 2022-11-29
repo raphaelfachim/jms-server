@@ -46,6 +46,10 @@ public class Bobina {
     public Float getEspessura() {
         return espessura;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Bobina{" + "codigo=" + codigo + ", peso=" + peso + ", largura=" + largura + ", comprimento=" + comprimento + ", espessura=" + espessura + '}';
+    }
     
 }

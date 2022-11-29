@@ -50,5 +50,10 @@ public class Placa {
     public Float getEspessura() {
         return espessura;
     }
-       
+
+    @Override
+    public String toString() {
+        return "Placa{" + "codigo=" + codigo + ", peso=" + peso + ", largura=" + largura + ", comprimento=" + comprimento + ", espessura=" + espessura + '}';
+    }
+    
 }
