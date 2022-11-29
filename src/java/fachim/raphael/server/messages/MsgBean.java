@@ -5,10 +5,10 @@
  */
 package fachim.raphael.server.messages;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import fachim.raphael.server.bo.MensagensBO;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -25,6 +25,9 @@ import javax.jms.TextMessage;
 })
 public class MsgBean implements MessageListener {
 
+    @Inject
+    private MensagensBO bo;
+    
     public MsgBean() {
     }
     
@@ -35,14 +38,18 @@ public class MsgBean implements MessageListener {
         System.out.println("========= Message Received =========");
         System.out.println("====================================");
         
-        String message = "";
+        String mensagem = "";
         
         try {
-            message = txtMsg.getText();
+            mensagem = txtMsg.getText();
+            bo.processaMensagem(mensagem);
+            
         } catch (JMSException ex) {
             System.err.println(ex.getMessage());
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
         }
-        System.out.println("Message : " + message);
+        System.out.println("Message : " + mensagem);
     }
     
 }
